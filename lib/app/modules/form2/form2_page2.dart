@@ -10,12 +10,15 @@ class Form2Page extends StatelessWidget {
     final UserController userController = Get.put(UserController());
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Formulário 2"),
-        /* leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: const Icon(Icons.arrow_back)), */
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.black,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),
@@ -27,7 +30,7 @@ class Form2Page extends StatelessWidget {
                   child: Image.asset(
                 "assets/images/logo.png",
                 width: 300,
-                height: 120,
+                height: 80,
                 fit: BoxFit.contain,
               )),
               const SizedBox(
