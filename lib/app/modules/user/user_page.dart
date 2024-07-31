@@ -40,14 +40,19 @@ class UserPage extends StatelessWidget {
               "Email: ${user.email}",
               style: const TextStyle(fontSize: 20),
             ),
-            Text(
-              "CEP: ${user.cep}",
-              style: const TextStyle(fontSize: 20),
+            Offstage(
+              offstage: user.cep.isEmpty,
+              child: Text(
+                "CEP: ${user.cep}",
+                style: const TextStyle(fontSize: 20),
+              ),
             ),
-            Text(
-              "Endereço completo: ${user.address}, ${user.number.isNotEmpty ? user.number : "S/N"}. Bairro: ${user.neighborhood}, ${user.city}",
-              style: const TextStyle(fontSize: 20),
-            ),
+            Offstage(
+                offstage: user.address.isEmpty,
+                child: Text(
+                  "Endereço completo: ${user.address}, ${user.number.isNotEmpty ? user.number : "S/N"}. Bairro: ${user.neighborhood}, ${user.city}",
+                  style: const TextStyle(fontSize: 20),
+                )),
           ],
         ),
       ),

@@ -62,7 +62,7 @@ class Form2Page extends StatelessWidget {
                     return null;
                   }),
               TextFormField(
-                  decoration: const InputDecoration(labelText: "Email"),
+                  decoration: const InputDecoration(labelText: "E-mail"),
                   keyboardType: TextInputType.emailAddress,
                   controller: userController.emailController,
                   /* Validação para que o e-mail tenha o símbolo do @, . e algum caracter antes e depois de ambos os símbolos */

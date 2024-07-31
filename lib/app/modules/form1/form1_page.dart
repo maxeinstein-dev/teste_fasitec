@@ -21,7 +21,7 @@ class Form1Page extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.all(15),
         child: Form(
           key: userController.formKey,
           child: ListView(
@@ -63,7 +63,7 @@ class Form1Page extends StatelessWidget {
                     return null;
                   }),
               TextFormField(
-                  decoration: const InputDecoration(labelText: "Email"),
+                  decoration: const InputDecoration(labelText: "E-mail"),
                   keyboardType: TextInputType.emailAddress,
                   controller: userController.emailController,
                   /* Validação para que o e-mail tenha o símbolo do @, . e algum caracter antes e depois de ambos os símbolos */
