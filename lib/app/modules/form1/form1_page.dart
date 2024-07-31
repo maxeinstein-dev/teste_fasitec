@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:teste_fasitec/app/modules/user/user_controller.dart';
-import 'package:teste_fasitec/app/modules/user/user_page.dart';
+import 'package:teste_fasitec/app/modules/form1/form1_controller.dart';
 
-class Form1Page extends StatelessWidget {
+class Form1Page extends GetView<Form1Controller> {
   const Form1Page({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final UserController controller = Get.put(UserController());
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -43,7 +40,7 @@ class Form1Page extends StatelessWidget {
   }
 }
 
-Widget _buildForm1(UserController controller) {
+Widget _buildForm1(Form1Controller controller) {
   return Padding(
     padding: const EdgeInsets.all(15),
     child: Form(
@@ -73,32 +70,20 @@ Widget _buildForm1(UserController controller) {
             validator: (value) => controller.validate(value, "sobrenome"),
           ),
           TextFormField(
-              decoration: const InputDecoration(labelText: "Digite seu CPF"),
-              keyboardType: TextInputType.number,
-              controller: controller.cpfController,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              /* Validação para que o CPF tenha 11 caracteres */
-              validator: (value) {
-                final emptyValidation = controller.validate(value, "CPF");
-                if (emptyValidation != null) return emptyValidation;
-                if (value!.length < 11) {
-                  return "Por favor, digite um CPF válido com 11 caracteres";
-                }
-                return null;
-              }),
+            decoration: const InputDecoration(labelText: "Digite seu CPF"),
+            keyboardType: TextInputType.number,
+            controller: controller.cpfController,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            /* Validação para que o CPF tenha 11 caracteres */
+            validator: (value) => controller.validateCPF(value!),
+          ),
           TextFormField(
-              decoration: const InputDecoration(labelText: "E-mail"),
-              keyboardType: TextInputType.emailAddress,
-              controller: controller.emailController,
-              /* Validação para que o e-mail tenha o símbolo do @, . e algum caracter antes e depois de ambos os símbolos */
-              validator: (value) {
-                final emptyValidation = controller.validate(value, "email");
-                if (emptyValidation != null) return emptyValidation;
-                if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!)) {
-                  return "Por favor, digite um e-mail válido";
-                }
-                return null;
-              }),
+            decoration: const InputDecoration(labelText: "E-mail"),
+            keyboardType: TextInputType.emailAddress,
+            controller: controller.emailController,
+            /* Validação para que o e-mail tenha o símbolo do @, . e algum caracter antes e depois de ambos os símbolos */
+            validator: (value) => controller.validateEmail(value!),
+          ),
           const SizedBox(height: 50),
           ElevatedButton(
               onPressed: () {
@@ -133,7 +118,7 @@ Widget _buildForm1(UserController controller) {
   );
 }
 
-Widget _buildForm2(UserController controller) {
+Widget _buildForm2(Form1Controller controller) {
   return Padding(
     padding: const EdgeInsets.all(15),
     child: Form(
@@ -199,7 +184,7 @@ Widget _buildForm2(UserController controller) {
   );
 }
 
-Widget _buildForm3(UserController controller) {
+Widget _buildForm3(Form1Controller controller) {
   return Padding(
     padding: const EdgeInsets.all(15),
     child: Form(
@@ -210,20 +195,13 @@ Widget _buildForm3(UserController controller) {
             decoration: const InputDecoration(labelText: "Digite sua senha"),
             obscureText: true,
             controller: controller.passwordController,
-            validator: (value) => controller.validate(value, "senha"),
+            validator: (value) => controller.validatePassword(value!),
           ),
           TextFormField(
             decoration: const InputDecoration(labelText: "Repita sua senha"),
             obscureText: true,
             controller: controller.confirmPasswordController,
-            validator: (value) {
-              final emptyValidation = controller.validate(value, "senha");
-              if (emptyValidation != null ||
-                  value != controller.passwordController.text) {
-                return "As senhas não são iguais. Por favor, redigite sua senha";
-              }
-              return null;
-            },
+            validator: (value) => controller.validateConfirmPassword(value!),
           ),
           const SizedBox(
             height: 15,
@@ -232,7 +210,7 @@ Widget _buildForm3(UserController controller) {
               onPressed: () {
                 if (controller.formKey3.currentState!.validate()) {
                   final user = controller.getUser();
-                  Get.to(() => const UserPage(), arguments: user);
+                  Get.toNamed("/userPage", arguments: user);
                 }
               },
               child: const Text("Próximo")),

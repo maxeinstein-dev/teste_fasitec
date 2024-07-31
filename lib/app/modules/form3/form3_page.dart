@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:teste_fasitec/app/modules/user/user_controller.dart';
+import 'package:teste_fasitec/app/modules/form3/form3_controller.dart';
 
-class Form3Page extends StatelessWidget {
+class Form3Page extends GetView<Form3Controller> {
   const Form3Page({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final UserController controller = Get.put(UserController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -24,7 +23,7 @@ class Form3Page extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: Form(
-          key: controller.formKey,
+          key: controller.formKey1,
           child: ListView(
             children: [
               Image.asset(
@@ -56,35 +55,21 @@ class Form3Page extends StatelessWidget {
                   controller: controller.cpfController,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   /* Validação para que o CPF tenha 11 caracteres */
-                  validator: (value) {
-                    final emptyValidation = controller.validate(value, "CPF");
-                    if (emptyValidation != null) return emptyValidation;
-                    if (value!.length < 11) {
-                      return "Por favor, digite um CPF válido com 11 caracteres";
-                    }
-                    return null;
-                  }),
+                  validator: (value) => controller.validateCPF(value!)),
               TextFormField(
                   decoration: const InputDecoration(
                       labelText: "Digite seu E-mail", hintText: "E-mail"),
                   keyboardType: TextInputType.emailAddress,
                   controller: controller.emailController,
                   /* Validação para que o e-mail tenha o símbolo do @, . e algum caracter antes e depois de ambos os símbolos */
-                  validator: (value) {
-                    final emptyValidation = controller.validate(value, "email");
-                    if (emptyValidation != null) return emptyValidation;
-                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!)) {
-                      return "Por favor, digite um e-mail válido";
-                    }
-                    return null;
-                  }),
+                  validator: (value) => controller.validateEmail(value!)),
               const SizedBox(height: 50),
               ElevatedButton(
                   onPressed: () {
-                    if (controller.formKey.currentState?.validate() ?? false) {
+                    if (controller.formKey3.currentState!.validate()) {
                       final user = controller.getUser();
                       if (user != null) {
-                        Get.toNamed("/user", arguments: user);
+                        Get.toNamed("/userPage", arguments: user);
                       }
                     }
                   },

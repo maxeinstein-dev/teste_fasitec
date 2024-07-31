@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:teste_fasitec/app/modules/user/user_controller.dart';
+import 'package:teste_fasitec/app/modules/form2/form2_controller.dart';
 
-class Form2Page extends StatelessWidget {
+class Form2Page extends GetView<Form2Controller> {
   const Form2Page({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final UserController controller = Get.put(UserController());
+    /* final UserController controller = Get.put(UserController()); */
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -55,27 +55,13 @@ class Form2Page extends StatelessWidget {
                   controller: controller.cpfController,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   /* Validação para que o CPF tenha 11 caracteres */
-                  validator: (value) {
-                    final emptyValidation = controller.validate(value, "CPF");
-                    if (emptyValidation != null) return emptyValidation;
-                    if (value!.length < 11) {
-                      return "Por favor, digite um CPF válido com 11 caracteres";
-                    }
-                    return null;
-                  }),
+                  validator: (value) => controller.validateCPF(value!)),
               TextFormField(
                   decoration: const InputDecoration(labelText: "E-mail"),
                   keyboardType: TextInputType.emailAddress,
                   controller: controller.emailController,
                   /* Validação para que o e-mail tenha o símbolo do @, . e algum caracter antes e depois de ambos os símbolos */
-                  validator: (value) {
-                    final emptyValidation = controller.validate(value, "email");
-                    if (emptyValidation != null) return emptyValidation;
-                    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!)) {
-                      return "Por favor, digite um e-mail válido";
-                    }
-                    return null;
-                  }),
+                  validator: (value) => controller.validateEmail(value!)),
               TextFormField(
                 decoration: const InputDecoration(labelText: "Digite seu CEP"),
                 keyboardType: TextInputType.number,
@@ -123,31 +109,24 @@ class Form2Page extends StatelessWidget {
                     const InputDecoration(labelText: "Digite sua senha"),
                 obscureText: true,
                 controller: controller.passwordController,
-                validator: (value) => controller.validate(value, "senha"),
+                validator: (value) => controller.validatePassword(value!),
               ),
               TextFormField(
-                decoration:
-                    const InputDecoration(labelText: "Repita sua senha"),
-                obscureText: true,
-                controller: controller.confirmPasswordController,
-                validator: (value) {
-                  final emptyValidation = controller.validate(value, "senha");
-                  if (emptyValidation != null ||
-                      value != controller.passwordController.text) {
-                    return "As senhas não são iguais. Por favor, redigite sua senha";
-                  }
-                  return null;
-                },
-              ),
+                  decoration:
+                      const InputDecoration(labelText: "Repita sua senha"),
+                  obscureText: true,
+                  controller: controller.confirmPasswordController,
+                  validator: (value) =>
+                      controller.validateConfirmPassword(value!)),
               const SizedBox(
                 height: 20,
               ),
               ElevatedButton(
                   onPressed: () {
-                    if (controller.formKey.currentState?.validate() ?? false) {
+                    if (controller.formKey.currentState!.validate()) {
                       final user = controller.getUser();
                       if (user != null) {
-                        Get.toNamed("/user", arguments: user);
+                        Get.toNamed("/userPage", arguments: user);
                       }
                     }
                   },
