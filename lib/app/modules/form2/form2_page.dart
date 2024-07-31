@@ -16,7 +16,7 @@ class Form2Page extends StatelessWidget {
           onPressed: () {
             Get.back();
           },
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios_outlined),
           color: Colors.black,
         ),
       ),
@@ -151,18 +151,18 @@ class Form2Page extends StatelessWidget {
                   },
                   child: const Text("Próximo")),
               const SizedBox(
-                height: 15,
+                height: 60,
               ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    Icons.save,
+                    Icons.add_a_photo,
                     size: 50,
                   ),
                   SizedBox(width: 30),
                   Icon(
-                    Icons.cancel,
+                    Icons.archive,
                     size: 50,
                   ),
                 ],
