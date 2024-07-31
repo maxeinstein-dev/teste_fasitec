@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:teste_fasitec/app/modules/user/user_controller.dart';
 
@@ -7,7 +8,7 @@ class Form3Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final UserController userController = Get.put(UserController());
+    final UserController controller = Get.put(UserController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -23,7 +24,7 @@ class Form3Page extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: Form(
-          key: userController.formKey,
+          key: controller.formKey,
           child: ListView(
             children: [
               Image.asset(
@@ -39,23 +40,24 @@ class Form3Page extends StatelessWidget {
               TextFormField(
                 decoration: const InputDecoration(
                     labelText: "Digite seu nome", hintText: "Nome"),
-                controller: userController.nameController,
-                validator: (value) => Validation.validate(value, "nome"),
+                controller: controller.nameController,
+                validator: (value) => controller.validate(value, "nome"),
               ),
               TextFormField(
                 decoration: const InputDecoration(
                     labelText: "Digite seu sobrenome", hintText: "Sobrenome"),
-                controller: userController.lastNameController,
-                validator: (value) => Validation.validate(value, "sobrenome"),
+                controller: controller.lastNameController,
+                validator: (value) => controller.validate(value, "sobrenome"),
               ),
               TextFormField(
                   decoration: const InputDecoration(
                       labelText: "Digite seu CPF", hintText: "CPF"),
                   keyboardType: TextInputType.number,
-                  controller: userController.cpfController,
+                  controller: controller.cpfController,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   /* Validação para que o CPF tenha 11 caracteres */
                   validator: (value) {
-                    final emptyValidation = Validation.validate(value, "CPF");
+                    final emptyValidation = controller.validate(value, "CPF");
                     if (emptyValidation != null) return emptyValidation;
                     if (value!.length < 11) {
                       return "Por favor, digite um CPF válido com 11 caracteres";
@@ -66,10 +68,10 @@ class Form3Page extends StatelessWidget {
                   decoration: const InputDecoration(
                       labelText: "Digite seu E-mail", hintText: "E-mail"),
                   keyboardType: TextInputType.emailAddress,
-                  controller: userController.emailController,
+                  controller: controller.emailController,
                   /* Validação para que o e-mail tenha o símbolo do @, . e algum caracter antes e depois de ambos os símbolos */
                   validator: (value) {
-                    final emptyValidation = Validation.validate(value, "email");
+                    final emptyValidation = controller.validate(value, "email");
                     if (emptyValidation != null) return emptyValidation;
                     if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value!)) {
                       return "Por favor, digite um e-mail válido";
@@ -79,9 +81,8 @@ class Form3Page extends StatelessWidget {
               const SizedBox(height: 50),
               ElevatedButton(
                   onPressed: () {
-                    if (userController.formKey.currentState?.validate() ??
-                        false) {
-                      final user = userController.getUser();
+                    if (controller.formKey.currentState?.validate() ?? false) {
+                      final user = controller.getUser();
                       if (user != null) {
                         Get.toNamed("/user", arguments: user);
                       }
