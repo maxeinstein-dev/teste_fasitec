@@ -17,39 +17,45 @@ class UserController extends GetxController {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  /* Controller da key do form */
+  /* Chaves para cada formulário */
   final formKey = GlobalKey<FormState>();
+  final formKey1 = GlobalKey<FormState>();
+  final formKey2 = GlobalKey<FormState>();
+  final formKey3 = GlobalKey<FormState>();
+
+  final PageController pageController = PageController();
 
   User? getUser() {
-    if (formKey.currentState?.validate() ?? false) {
-      return User(
-        name: nameController.text,
-        lastName: lastNameController.text,
-        cpf: cpfController.text,
-        email: emailController.text,
-        cep: cepController.text,
-        address: addressController.text,
-        number: numberController.text,
-        city: cityController.text,
-        neighborhood: neighborhoodController.text,
-        password: passwordController.text,
-        confirmPassword: confirmPasswordController.text,
-      );
-    }
-
-    return null;
+    return User(
+      name: nameController.text,
+      lastName: lastNameController.text,
+      cpf: cpfController.text,
+      email: emailController.text,
+      cep: cepController.text,
+      address: addressController.text,
+      number: numberController.text,
+      city: cityController.text,
+      neighborhood: neighborhoodController.text,
+      password: passwordController.text,
+      confirmPassword: confirmPasswordController.text,
+    );
   }
 
+/* Método para avançar para o próximo formulário sendo efetuada a validação */
   var currentFormIndex = 0.obs;
   void nextForm() {
-    if (currentFormIndex < 2) {
+    if (currentFormIndex.value < 2) {
       currentFormIndex.value++;
-    } else {
+      pageController.nextPage(
+          duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+    } else if (currentFormIndex.value == 2 &&
+        formKey3.currentState!.validate()) {
       final user = getUser();
       Get.to(() => const UserPage(), arguments: user);
     }
   }
 
+/* Valida se os campos estão vazios ou nulos para retornar mensagem de erro */
   String? validate(String? value, String fieldName) {
     if (value == null || value.isEmpty) {
       if (fieldName == "cidade" || fieldName == "senha") {
@@ -61,4 +67,3 @@ class UserController extends GetxController {
     return null;
   }
 }
-
