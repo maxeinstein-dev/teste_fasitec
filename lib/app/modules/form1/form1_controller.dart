@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teste_fasitec/app/data/model/user.dart';
-import 'package:teste_fasitec/app/modules/user/user_page.dart';
 
 class Form1Controller extends GetxController {
   /* Controllers de cada campo para que seja atualizado e enviado */
