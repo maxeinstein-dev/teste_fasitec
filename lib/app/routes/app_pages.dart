@@ -21,7 +21,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: Routes.form1,
-      page: () => const Form1Page(),
+      page: () => Form1Page(),
       binding: Form1Binding(),
     ),
     GetPage(

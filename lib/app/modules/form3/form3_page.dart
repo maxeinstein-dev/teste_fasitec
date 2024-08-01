@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:teste_fasitec/app/global/address_overlay.dart';
 import 'package:teste_fasitec/app/modules/form3/form3_controller.dart';
 
 class Form3Page extends GetView<Form3Controller> {
@@ -66,12 +67,27 @@ class Form3Page extends GetView<Form3Controller> {
               const SizedBox(height: 50),
               ElevatedButton(
                   onPressed: () {
-                    if (controller.formKey3.currentState!.validate()) {
+                    // Get.bottomSheet(
+                    //   isScrollControlled: true,
+                    //   Material(
+                    //     borderRadius: BorderRadius.circular(10),
+                    //     child: Column(
+                    //       children: [
+                    //         SizedBox(
+                    //           height: Get.height / 2,
+                    //           width: Get.width,
+                    //           child: AddressOverlay(),
+                    //         )
+                    //       ],
+                    //     ),
+                    //   ),
+                    // );
+                    /* if (controller.formKey1.currentState!.validate()) {
                       final user = controller.getUser();
                       if (user != null) {
                         Get.toNamed("/userPage", arguments: user);
                       }
-                    }
+                    } */
                   },
                   child: const Text("Próximo")),
               const SizedBox(

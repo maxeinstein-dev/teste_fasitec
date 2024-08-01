@@ -22,6 +22,15 @@ class Form1Controller extends GetxController {
   final formKey2 = GlobalKey<FormState>();
   final formKey3 = GlobalKey<FormState>();
 
+  Rx<OverlayEntry?> overlayEntry = Rx<OverlayEntry?>(null);
+  void setCurrentOverlay(OverlayEntry currentOverlayEntry) {
+    overlayEntry.value = currentOverlayEntry;
+  }
+
+  void removeOverlay() {
+    overlayEntry.value!.remove();
+  }
+
   final PageController pageController = PageController();
   /* Método para avançar para o próximo formulário sendo efetuada a validação */
   var currentFormIndex = 0.obs;
