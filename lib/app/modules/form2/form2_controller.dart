@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:teste_fasitec/app/data/model/user.dart';
 
 class Form2Controller extends GetxController {
-  /* Controllers de cada campo para que seja atualizado e enviado */
+  /* Controllers  */
   final nameController = TextEditingController();
   final lastNameController = TextEditingController();
   final cpfController = TextEditingController();
@@ -16,10 +16,10 @@ class Form2Controller extends GetxController {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  /* Chaves para cada formulário */
+  /* Chave do formulário */
   final formKey = GlobalKey<FormState>();
 
-  /* Valida se os campos estão vazios ou nulos para retornar mensagem de erro */
+  /* Valida os campos */
   String? validate(String? value, String fieldName) {
     if (value == null || value.isEmpty) {
       if (fieldName == "cidade" || fieldName == "senha") {
@@ -67,6 +67,7 @@ class Form2Controller extends GetxController {
     return null;
   }
 
+  /* Monta usuário */
   User? getUser() {
     return User(
       name: nameController.text,

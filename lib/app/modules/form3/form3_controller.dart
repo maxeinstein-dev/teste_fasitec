@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:teste_fasitec/app/data/model/user.dart';
 
 class Form3Controller extends GetxController {
-  /* Controllers de cada campo para que seja atualizado e enviado */
+  /* Controllers */
   final nameController = TextEditingController();
   final lastNameController = TextEditingController();
   final cpfController = TextEditingController();
@@ -16,27 +16,12 @@ class Form3Controller extends GetxController {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  /* Chaves para cada formulário */
+  /* Chaves dos formulários */
   final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
   final formKey3 = GlobalKey<FormState>();
 
-  final PageController pageController = PageController();
-  /* Método para avançar para o próximo formulário sendo efetuada a validação */
-  var currentFormIndex = 0.obs;
-  void nextForm() {
-    if (currentFormIndex.value < 2) {
-      currentFormIndex.value++;
-      pageController.nextPage(
-          duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
-    } else if (currentFormIndex.value == 2 &&
-        formKey3.currentState!.validate()) {
-      final user = getUser();
-      Get.toNamed("/userPage", arguments: user);
-    }
-  }
-
-  /* Valida se os campos estão vazios ou nulos para retornar mensagem de erro */
+  /* Valida os campos*/
   String? validate(String? value, String fieldName) {
     if (value == null || value.isEmpty) {
       if (fieldName == "cidade" || fieldName == "senha") {
@@ -84,6 +69,7 @@ class Form3Controller extends GetxController {
     return null;
   }
 
+  /* Monta usuário */
   User? getUser() {
     return User(
       name: nameController.text,

@@ -7,6 +7,8 @@ import 'package:teste_fasitec/app/modules/user/user_page.dart';
 import 'form1_controller.dart';
 
 class Form1Page extends GetView<Form1Controller> {
+  const Form1Page({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,14 +17,7 @@ class Form1Page extends GetView<Form1Controller> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            if (controller.currentFormIndex.value > 0) {
-              controller.currentFormIndex.value--;
-              controller.pageController.previousPage(
-                  duration: const Duration(milliseconds: 400),
-                  curve: Curves.easeInOut);
-            } else {
               Get.back();
-            }
           },
           icon: const Icon(Icons.arrow_back_ios_outlined),
           color: Colors.black,
@@ -33,7 +28,6 @@ class Form1Page extends GetView<Form1Controller> {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           _buildForm1(context),
-          // Remova _buildForm2 e _buildForm3 da PageView
         ],
       ),
     );

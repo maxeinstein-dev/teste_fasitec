@@ -22,24 +22,28 @@ class UserPage extends StatelessWidget {
               style: TextStyle(fontSize: 25),
             ),
             const SizedBox(
-              height: 20,
+              height: 40,
             ),
             Text(
               "Nome: ${user.name}",
               style: const TextStyle(fontSize: 20),
             ),
+            const Divider(),
             Text(
               "Sobrenome: ${user.lastName}",
               style: const TextStyle(fontSize: 20),
             ),
+            const Divider(),
             Text(
               "CPF: ${user.cpf}",
               style: const TextStyle(fontSize: 20),
             ),
+            const Divider(),
             Text(
               "Email: ${user.email}",
               style: const TextStyle(fontSize: 20),
             ),
+            const Divider(),
             Offstage(
               offstage: user.cep.isEmpty,
               child: Text(
@@ -50,7 +54,7 @@ class UserPage extends StatelessWidget {
             Offstage(
                 offstage: user.address.isEmpty,
                 child: Text(
-                  "Endereço completo: ${user.address}, ${user.number.isNotEmpty ? user.number : "S/N"}. Bairro: ${user.neighborhood}, ${user.city}",
+                  "Endereço completo: ${user.address}, ${user.number.isNotEmpty ? user.number : "S/N"}. \nBairro: ${user.neighborhood}, ${user.city}",
                   style: const TextStyle(fontSize: 20),
                 )),
           ],
