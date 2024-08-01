@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:teste_fasitec/app/modules/form3/form3_controller.dart';
 import 'package:teste_fasitec/app/modules/user/user_page.dart';
 
-class AddressWidget extends StatelessWidget {
+class AddressWidget3 extends StatelessWidget {
   final Form3Controller controller;
-  const AddressWidget({super.key, required this.controller});
+  const AddressWidget3({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

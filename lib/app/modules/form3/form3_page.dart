@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:teste_fasitec/app/global/password_widget.dart';
+import 'package:teste_fasitec/app/global/password_widget3.dart';
 import 'package:teste_fasitec/app/modules/form3/form3_controller.dart';
 
 class Form3Page extends GetView<Form3Controller> {
@@ -76,7 +76,7 @@ class Form3Page extends GetView<Form3Controller> {
                               SizedBox(
                                 height: Get.height * 0.5,
                                 width: Get.width,
-                                child: PasswordWidget(controller: controller),
+                                child: PasswordWidget3(controller: controller),
                               )
                             ],
                           ),
